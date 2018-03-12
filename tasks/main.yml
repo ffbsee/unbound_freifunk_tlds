@@ -13,3 +13,14 @@
   with_items: "{{ lookup('fileglob', ff_community_data_dir + '/*', wantlist=True) }}"
   loop_control:
     loop_var: ff_community_data_file
+
+
+- name: Configure unbound to use stub zones
+  template:
+    src: freifunk_stub_zones.conf.j2
+    dest: '/etc/unbound/unbound.conf.d/freifunk_stub_zones.conf'
+    owner: root
+    group: root
+    mode: 'u=rw,g=r,o=r'
+  notify:
+    - restart unbound
