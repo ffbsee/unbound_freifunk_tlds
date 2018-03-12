@@ -1,4 +1,7 @@
 # Configure stub zones for community: '{{ ff_community_name }}'
+{% if stub_zone_names | length == 0 %}
+# No domains found in meta data
+{% else %}
 
 {% for stub_zone_name in stub_zone_names | unique %}
 stub-zone:
@@ -20,3 +23,5 @@ server:
 
 {% endif %}
 {% endfor %}
+
+{% endif %}

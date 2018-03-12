@@ -18,7 +18,7 @@
     group: root
     mode: 'u=rw,g=r,o=r'
   vars:
-    stub_zone_name: '{{ ff_community_data.domains[0] }}'
-    stub_zone_nameservers: '{{ ff_community_data.nameservers }}'
+    stub_zone_names: '{{ ff_community_data.domains | default([]) }}'
+    stub_zone_nameservers: '{{ ff_community_data.nameservers | default([]) }}'
   notify:
     - restart unbound
