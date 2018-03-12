@@ -1,0 +1,8 @@
+---
+# Directory where to find the Freifunk Community Metadata.
+# Content of: https://github.com/freifunk/icvpn-meta
+ff_community_data_dir: 'files/ff_communities'
+
+# Directory where to place the stub files on the server.
+# This is a immediate subdirectory of '/etc/unbound/'.
+ff_stub_zones_dir: 'ff_stub_zones'

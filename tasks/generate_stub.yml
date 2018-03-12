@@ -1,0 +1,24 @@
+---
+- name: Get community name
+  set_fact:
+    ff_community_name: '{{ ff_community_data_file | basename }}'
+
+
+- name: Read in data for community '{{ ff_community_name }}'
+  include_vars:
+    file: '{{ ff_community_data_file }}'
+    name: ff_community_data
+
+
+- name: Build stub zone for community '{{ ff_community_name }}'
+  template:
+    src: unbound_stub_zone.j2
+    dest: '/etc/unbound/{{ ff_stub_zones_dir }}/ff_{{ ff_community_name }}_stub_zone.conf'
+    owner: root
+    group: root
+    mode: 'u=rw,g=r,o=r'
+  vars:
+    stub_zone_name: '{{ ff_community_data.domains[0] }}'
+    stub_zone_nameservers: '{{ ff_community_data.nameservers }}'
+  notify:
+    - restart unbound

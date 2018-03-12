@@ -1,0 +1,7 @@
+stub-zone:
+  name: "{{ stub_zone_name }}"
+{% for nameserver in stub_zone_nameservers | ipaddr %}
+  stub-addr: {{ nameserver }}
+{% endfor %}
+  # stub-prime: no
+  # stub-first: no
