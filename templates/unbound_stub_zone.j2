@@ -1,3 +1,6 @@
+# Configure stub zones for community: '{{ ff_community_name }}'
+
+{% for stub_zone_name in stub_zone_names | unique %}
 stub-zone:
   name: "{{ stub_zone_name }}"
 {% for nameserver in stub_zone_nameservers | ipaddr %}
@@ -5,3 +8,15 @@ stub-zone:
 {% endfor %}
   # stub-prime: no
   # stub-first: no
+
+{% endfor %}
+
+# Allow answers to inverse queries for private addresses
+
+{% for stub_zone_name in stub_zone_names | unique %}
+{% if stub_zone_name[-4:] == 'arpa' %}
+server:
+  local-zone: {{ stub_zone_name }} transparent
+
+{% endif %}
+{% endfor %}
