@@ -10,7 +10,7 @@
 
 - name: Build stub zones for all communities
   include_tasks: generate_stub.yml
-  with_items: "{{ lookup('fileglob', ff_community_data_dir + '/*', wantlist=True) }}"
+  with_items: "{{ lookup('fileglob', ff_community_data_dir + '/*[!.md]', wantlist=True) }}"
   loop_control:
     loop_var: ff_community_data_file
 
